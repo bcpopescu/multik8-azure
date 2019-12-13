@@ -1,0 +1,20 @@
+apiVersion: cert-manager.io/v1alpha2
+kind: Certificate
+metadata:
+  name: metis-technology-com-tls
+spec:
+  secretName: metis-technology-com
+  issuerRef:
+    name: letsencrypt-prod
+    kind: ClusterIssuer
+  commonName: metis-technology.com
+  dnsNames:
+    - metis-technology.com
+    - www.metis-technology.com
+  acme:
+    config:
+      - http01:
+          ingressClass: nginx
+        domains:
+          - metis-technology.com
+          - www.metis-technology.com
