@@ -8,12 +8,12 @@ env:
         - CLOUDSDK_CORE_DISABLE_PROMPTS=1
     
 before_install:
-    - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-    - docker build -t bcp24521/react-test -f ./client/Dockerfile.dev ./client
     - curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
     - az login --service-principal -u $AZURE_USER -p $AZURE_SECRET  --tenant $AZURE_TENANT
-    - az aks install-cli
+    - sudo az aks install-cli
     - az aks get-credentials --resource-group multik8 --name multik8 --subscription $AZURE_SUBSCRIPTION
+    - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+    - docker build -t bcp24521/react-test -f ./client/Dockerfile.dev ./client    
     
 script:
     - docker run -e CI=true bcp24521/react-test npm run test 
