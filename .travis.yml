@@ -10,8 +10,6 @@ env:
 before_install:
     - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
     - docker build -t bcp24521/react-test -f ./client/Dockerfile.dev ./client
-    - apt-get update
-    - apt-get -y install curl
     - curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
     - az login --service-principal -u $AZURE_USER -p $AZURE_SECRET  --tenant $AZURE_TENANT
     - az aks install-cli
