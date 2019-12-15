@@ -19,7 +19,7 @@ script:
     - docker run -e CI=true bcp24521/react-test npm run test 
     
 deploy:
-    provider: azure_web_apps
+    provider: script
     script: bash ./deploy.sh
     on: 
         branch: master
